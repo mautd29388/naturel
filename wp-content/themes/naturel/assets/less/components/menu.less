@@ -1,0 +1,54 @@
+
+.mega-menu-wrap,
+.dropdown-menu-wrap{
+    left: 0;
+    position: absolute;
+    top: 100%;	
+    z-index: 99;
+}
+.mega-menu-wrap.pos-left,
+.dropdown-menu-wrap.pos-left{
+	left: auto;
+	right: 0;
+}
+.mega-menu-wrap.pos-center{
+	left: 0;
+	margin-left: 50%;
+}
+.mega-menu-wrap.full-width{
+    left: 0;
+}
+.sub-menu-wrap ul{
+	padding: 0;
+	margin-bottom: 0;
+	list-style: none;
+}
+.sub-menu-wrap ul ul{
+	position: absolute;
+	top: 0;
+	left: 100%;
+}
+.mega-menu-wrap.pos-left ul ul,
+.dropdown-menu-wrap.pos-left ul ul{
+	left: auto;
+	right: 100%;
+}
+.mega-menu-wrap ul ul{
+	position: static;
+}
+.width-normal .sub-menu-wrap > ul{
+	display: table;
+}
+.sub-menu-wrap li{
+	position: relative;
+}
+.sub-menu-wrap *{
+	white-space: nowrap;
+}
+.width-normal .sub-menu-wrap > ul > li{
+	display: table-cell;
+	float: none;
+}
+.sub-menu-wrap{
+	text-align: left;	
+}

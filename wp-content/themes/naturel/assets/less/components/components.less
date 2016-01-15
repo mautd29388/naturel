@@ -1,0 +1,145 @@
+
+/*================================
+=========== COMPONENTS ===========
+==================================*/
+@import "../bootstrap-3.3.6/bootstrap.less";
+@import "animate.less";
+@import "feather.less";
+@import "font-awesome.min.less";
+@import "hover.less";
+@import "flickity.less";
+@import "menu.less";
+
+
+.wrap-boxed{
+	max-width: 1170px;
+	margin-left: auto;
+	margin-right: auto;
+}
+h1,h2,h3,h4,h5,h6{
+	margin: 0 0 10px;
+}
+.text-align(@align){
+	text-align: @align;
+}
+.text-align-left{
+	.text-align(left)
+}
+.text-align-center{
+	.text-align(center)
+}
+.text-align-right{
+	.text-align(right)
+}
+img{
+	max-width: 100%;
+	height: auto;
+}
+a{
+	.transition(all 0.25s ease);
+}
+a:focus,
+a:hover{
+	outline: 0;
+	text-decoration: none;
+}
+.modal-backdrop.in {
+    opacity: 0.8;
+}
+
+
+/* Custom select box */
+.s-hidden {
+    visibility:hidden;
+    padding-right:10px;
+}
+.select {
+    cursor:pointer;
+    display:inline-block;
+    position:relative;
+}
+.styledSelect {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    padding:0 10px;
+}
+.styledSelect:after {
+    content: "\f107";
+    font-family:'FontAwesome';
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    line-height: inherit;
+    font-size: 16px;
+}
+.styledSelect:active, .styledSelect.active {
+    background-color:#eee;
+}
+.options {
+    display:none;
+    position:absolute;
+    top:100%;
+    right:0;
+    left:0;
+    z-index:999;
+    margin:0 0;
+    padding:0 0;
+    list-style:none;
+    border:1px solid #ccc;
+    background-color:white;
+    		-webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+    	-moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.options li {
+    margin: 0;
+    padding: 0 10px;
+    white-space: nowrap;
+}
+
+
+/* Body Loadding */
+body:before{
+	content: "";
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	opacity: 0;
+	z-index: -999;
+	background-color: #FFF;
+	
+		-webkit-transition: opacity 2s, z-index 2s;
+    transition: opacity 2s, z-index 2s;
+}
+body.loadding:before{
+	opacity: 0.9;
+	z-index: 9998;
+}
+body:after{
+	content: "\f110";
+	position: fixed;
+	top: 50%;
+	left: 0;
+	right: 0;
+	font-family: FontAwesome;
+  	font-size: 48px;
+  	text-align: center;
+  	margin-top: -20px;
+  	z-index: -999;  	
+  	opacity: 0;
+  	color: @brand-primary;
+  	
+  		-webkit-transition: opacity 2s, z-index 2s;
+    transition: opacity 2s, z-index 2s;
+		-webkit-animation: fa-spin 2s infinite linear;
+	animation: fa-spin 2s infinite linear;
+}
+body.loadding:after{
+	opacity: 1;
+	z-index: 9999;
+}

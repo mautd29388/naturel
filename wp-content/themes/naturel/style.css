@@ -1,0 +1,32 @@
+/*
+Theme Name: Naturel
+Theme URI: #
+Author: mTheme
+Author URI: http://themeforest.net/user/mtheme_market
+Description:
+Version: 1.0
+License: license purchased
+License URI: http://themeforest.net/licenses
+Tags: black, white, left-sidebar, responsive-layout, custom-colors, custom-header, custom-menu, editor-style, featured-images
+Text Domain: mTheme
+*/
+.alignright {
+	float: right;
+	margin-left: 15px;
+}
+.alignleft {
+	float: left;
+	margin-right: 15px;
+}
+.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.wp-caption {
+	max-width: 100%;
+}
+.wp-caption-text {}
+.sticky {}
+.gallery-caption{}
+.bypostauthor {}
