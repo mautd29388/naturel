@@ -15,9 +15,10 @@
 	$header_middle_sidebar			= m_wedding_get_options('header_middle_sidebar');
 	$header_bottom_sidebar			= m_wedding_get_options('header_bottom_sidebar');
 	
+	/*
 	if ( $style == 'style-v2' ) {
 		$container = 'container-fluid';
-	}
+	}*/
 ?>
 </head>
 

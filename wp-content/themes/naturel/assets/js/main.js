@@ -82,6 +82,12 @@
 			});
 		})
 		
+		$('.sidebar-floating').on('click', '.floating-button', function(e) {
+			e.preventDefault();
+			
+			$('.sidebar-floating').toggleClass('active');
+		});
+		
 	});
 	
 	// Custom select

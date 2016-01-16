@@ -10,7 +10,13 @@
 .rev_slider_wrapper .tp-bullets .tp-bullet.selected{
 	background-color: #fff;
 }
-.mTheme-mini-cart .cart-contents .cart-count{
+.header.style-v2 .sidebar-floating .floating-button span,
+.header.style-v2 .sidebar-floating{
+	background-color: #000;
+}
+.mTheme-mini-cart .cart-contents .cart-count,
+.header.style-v2 .sidebar-floating .floating-button:hover span,
+.header.style-v2 .sidebar-floating.active .floating-button span{
 	background-color: @brand-primary;
 }
 
@@ -19,7 +25,8 @@
 body{
 	color: #666666;
 }
-.mTheme-mini-cart .cart-contents .cart-count{
+.mTheme-mini-cart .cart-contents .cart-count,
+.header.style-v2 .sidebar-floating{
 	color: #FFF;
 }
 .mTheme-mini-cart .cart-contents .cart-icon,
@@ -34,9 +41,12 @@ body{
 .navbar-nav li > a:hover,
 .navbar-nav li > a:focus,
 .navbar-nav li.active > a,
-.mTheme-mini-cart .cart-contents .cart-icon:hover, 
+.mTheme-mini-cart .cart-contents:hover .cart-icon, 
 .header .button-search i:hover,
-.woocommerce-product-search-modal .woocommerce-product-search button:hover{
+.woocommerce-product-search-modal .woocommerce-product-search button:hover,
+.header.style-v2 .sidebar-floating a:hover,
+.header.style-v2 .sidebar-floating a:focus,
+.header.style-v2 .sidebar-floating .active > a{
 	color: @brand-primary;
 }
 
@@ -61,4 +71,8 @@ body{
 /* Font Family */
 body{
 	font-family: "Josefin Slab";
+}
+
+.woocommerce .star-rating{
+	font-family: "feather";
 }

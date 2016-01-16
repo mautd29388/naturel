@@ -16,6 +16,11 @@ a:hover{
 	.widget-title{
 		display: none;
 	}
+	ul{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
 	.header-top{
 	    font-size: 15px;
 	    line-height: 54px;
@@ -66,15 +71,16 @@ a:hover{
 	    }
 	}
 	.header-middle{
-	    padding: 30px 0;
-	    line-height: 24px;
+	    margin: 30px 0;
+	    line-height: 18px;
 	    
 	    a{
 	    	color: inherit;
 	    	text-decoration: none !important;
+	    	line-height: inherit;
 	    }
 	    .header-search {
-	    	margin-top: 10px;
+	    	margin-top: 20px;
 	    	
 	    	.button-search{
 	    		padding-left: 19px;
@@ -90,9 +96,8 @@ a:hover{
 	}
 	nav.navbar{
 	    border: 0 none;
-	    margin: 10px 0 0;
+	    margin: 20px 0 0;
 	    min-height: 0;
-	    text-align: center;
 		
 		.navbar-brand{
 			display: none;
@@ -103,16 +108,24 @@ a:hover{
 			> li{
 				float: none;
 				display: inline-block;
+				padding: 0 30px;
 				
 				> a{
 					font-size: 15px;
-					padding: 0 30px;
+					display: block;
 					font-weight: bold;
 					text-transform: uppercase;
+					padding: 0;
 					
 					&:hover, &:focus{
 						background-color: transparent;
 					}
+				}
+				&:first-child{
+					padding-left: 0;
+				}
+				&:last-child{
+					padding-right: 0;
 				}
 				&.has-sub > a:after {
 				  display: inline-block;
@@ -192,6 +205,106 @@ a:hover{
 		}
 		.dropdown-menu-wrap .sub-menu-wrap {
 			min-width: 200px;
+		}
+	}
+	
+	/* Style v2 */
+	&.style-v2{
+		position: relative;
+		
+		.header-middle{
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			margin: 20px 0 0;
+			z-index: 9;
+		}
+		.sidebar-logo{
+			position: absolute;
+			top: 0;
+			left: 70px;
+			padding: 0;
+		}
+		.sidebar-floating{
+		    bottom: 0;
+		    min-width: 300px;
+		    padding: 30px;
+		    position: fixed;
+		    right: 0;
+		    top: 0;
+		    .translate(100%, 0);
+		    .transition(all 0.45s ease);
+		    width: auto;
+    		line-height: 28px;
+    		font-weight: bold;
+    		font-size: 15px;
+    			
+    		.admin-bar &{
+    			top: 32px;
+    		}
+    		a{
+    			color: inherit;
+    		}
+		    .floating-button{
+		        background: transparent;
+			    border: 0 none;
+			    border-radius: 0;
+			    padding: 0;
+			    position: absolute;
+			    left: -70px;
+			    top: 40px;
+			    width: 22px;
+			    height: 15px;
+			    .translate(-100%, 0);
+		    	
+		    	span{
+		    		display: block;
+		    		height: 3px;
+		    		.transition(all 0.35s ease);
+		    		
+		    		+ span{
+		    			margin-top: 3px;
+		    		}
+		    	}
+		    }
+		    .mTheme-mini-cart {
+			    .cart-contents{
+			    	display: inline-block;
+			    	margin-top: 10px;
+			    }
+			    .dropdown-cart{
+			    	display: none !important;
+			    }
+		    }
+		    &.active{
+		    	.translate(0, 0);
+		    	/*
+		    	.floating-button{
+		    		span{
+		    			bottom: 0;
+					    height: 1px;
+					    left: 0;
+					    margin: 0;
+					    position: absolute;
+					    right: 1px;
+					    .transform-origin(right 0 0);
+		    			.rotate(30deg);
+		    			
+		    			+ span{
+			    			.rotate(-30deg);
+			    		    left: 0;
+						    right: -5px;
+						    .transform-origin(left 0 0);
+		    				.rotate(-45deg);
+		    				
+			    			+ span{
+			    				display: none;
+			    			}
+			    		}
+		    		}
+		    	} */
+		    }
 		}
 	}
 }
