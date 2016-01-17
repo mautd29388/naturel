@@ -169,7 +169,7 @@ function m_wedding_pre_get_posts() {
 /**
  * Less
  */
-add_action( 'init', 'm_wedding_include_less' );
+add_action( 'init', 'm_wedding_include_less_dev' );
 function m_wedding_include_less_dev(){
 	
 	if ( is_admin() ) 
@@ -177,6 +177,20 @@ function m_wedding_include_less_dev(){
 	
 	m_wedding_include_less();
 }
+
+add_filter('ot_before_page_messages', 'm_wedding_ot_before_page_messages_less');
+function m_wedding_ot_before_page_messages_less($before) {
+	
+	$action = isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : '';
+	$message = isset( $_REQUEST['message'] ) ? $_REQUEST['message'] : '';
+	
+	if ( $action == 'import-data' && $message == 'success' ) {
+		m_wedding_include_less();
+	}
+	
+	return $before;
+}
+
 add_action( 'ot_after_theme_options_save', 'm_wedding_include_less' );
 function m_wedding_include_less() {
 	global $wpdb;
