@@ -6,6 +6,10 @@
 add_action ( 'admin_init', 'm_wedding_meta_boxes' );
 function m_wedding_meta_boxes() {
 	
+	if ( !function_exists ( 'ot_register_meta_box' ) ) {
+		
+		return false;	
+	}
 	
 	/**
 	 * Create a custom meta boxes array that we pass to
@@ -100,10 +104,8 @@ function m_wedding_meta_boxes() {
 	 * Register our meta boxes using the
 	 * ot_register_meta_box() function.
 	 */
-	if ( function_exists ( 'ot_register_meta_box' ) ) {
-		foreach ( $my_meta_box as $meta_box ) {
-			ot_register_meta_box ( $meta_box );
-		}
+	foreach ( $my_meta_box as $meta_box ) {
+		ot_register_meta_box ( $meta_box );
 	}
 }
 

@@ -169,7 +169,7 @@ function m_wedding_pre_get_posts() {
 /**
  * Less
  */
-add_action( 'init', 'm_wedding_include_less_dev' );
+//add_action( 'init', 'm_wedding_include_less_dev' );
 function m_wedding_include_less_dev(){
 	
 	if ( is_admin() ) 
@@ -178,8 +178,8 @@ function m_wedding_include_less_dev(){
 	m_wedding_include_less();
 }
 
-add_filter('ot_before_page_messages', 'm_wedding_ot_before_page_messages_less');
-function m_wedding_ot_before_page_messages_less($before) {
+add_filter('ot_before_page_messages', 'm_wedding_ot_before_page_messages');
+function m_wedding_ot_before_page_messages($before) {
 	
 	$action = isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : '';
 	$message = isset( $_REQUEST['message'] ) ? $_REQUEST['message'] : '';
@@ -191,23 +191,27 @@ function m_wedding_ot_before_page_messages_less($before) {
 	return $before;
 }
 
-add_action( 'ot_after_theme_options_save', 'm_wedding_include_less' );
-function m_wedding_include_less() {
+add_action( 'ot_after_theme_options_save', 'm_wedding_ot_after_theme_options_save' );
+function m_wedding_ot_after_theme_options_save() {
 	global $wpdb;
 	
 	$cookie_name = $wpdb->prefix . 'featured_color';
 	$featured_color = m_wedding_get_options( 'featured_color' );
 	
-	if ( is_admin() ) {
-		
-		if ( !isset($featured_color) || empty($featured_color) || ( isset($_COOKIE[$cookie_name]) && $_COOKIE[$cookie_name] == $featured_color ) ) {
-			return false;
+	if ( !isset($featured_color) || empty($featured_color) || ( isset($_COOKIE[$cookie_name]) && $_COOKIE[$cookie_name] == $featured_color ) ) {
+		return false;
 			
-		} else{
-			setcookie($cookie_name, $featured_color, time() + (86400 * 30), "/");
-		}
-		
+	} else{
+		setcookie($cookie_name, $featured_color, time() + (86400 * 30), "/");
 	}
+	
+	m_wedding_include_less();
+}
+
+function m_wedding_include_less() {
+	global $wpdb;
+	
+	$featured_color = m_wedding_get_options( 'featured_color' );
 	
 	require_once ('less/Less.php');
 	
