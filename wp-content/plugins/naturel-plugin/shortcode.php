@@ -7,7 +7,7 @@ class mTheme_Shortcode {
 		// Define shortcodes
 		$shortcodes = array (
 				'mTheme_posttypes' => __CLASS__ . '::posttypes',
-				'mTheme_maps' => __CLASS__ . '::maps',
+				//'mTheme_maps' => __CLASS__ . '::maps',
 		);
 		
 		foreach ( $shortcodes as $shortcode => $function ) {
@@ -50,50 +50,39 @@ class mTheme_Shortcode {
 	
 		self::$int++;
 		$int = self::$int;
-	
-		$post_types = get_post_types( array( 'public' => true) );
-		$posttypes = array();
-		foreach ( $post_types as $post_type ) {
-				
-			if ( 'attachment' !== $post_type ) {
-				$posttypes[$post_type] = '';
-			}
-		}
-		$atts = shortcode_atts ( array_merge(array (
-				'title' => '',
-				'styles' => 'carousel',
-				'source' => 'media_library',
-				'images' => '',
-				'posttypes' => '',
-				'order' => '',
-				'orderby' => '',
-				'after_content' => '',
-				'before_content' => '',
-				'max_items' => '10',
-				'img_size' => 'thumbnail',
-				'el_class' => '',
-				'css' => '',
-				'width' => '1/3',
-				'offset' => ''
-		), $posttypes), $atts );
-	
-		//wp_localize_script ( 'mtheme-plugin-main-js', 'mtheme_carousel_'. $int , $atts );
+		
+		$atts = shortcode_atts ( array (
+				'title' 			=> '',
+				'layout' 			=> 'product',
+				//'styles' 			=> 'carousel',
+				'source' 			=> 'media_library',
+				'images' 			=> '',
+				'product_group'		=> 'products_categories',
+				'product_cat_ids'	=> '',
+				'product_ids'		=> '',
+				'product_skus'		=> '',
+				'product_orderby'	=> 'date',
+				'product_order'		=> 'DESC',
+				'after_content' 	=> '',
+				'before_content' 	=> '',
+				'max_items' 		=> '10',
+				'img_size' 			=> 'thumbnail',
+				'el_class' 			=> '',
+				'css' 				=> '',
+				'width' 			=> '1/3',
+				'offset' 			=> ''
+		), $atts );
 	
 		ob_start();
-	
-		if ( ( $atts['source'] == 'media_library' && isset($atts['images']) && !empty($atts['images']) ) ||
-				$atts['source'] == 'posttypes' && !empty($atts['posttypes']) ) {
 						
-			$template = self::mTheme_get_template_part ( 'content', $atts['styles'] );
-			if ( file_exists("{$template}") ) {
-				require "{$template}";
-			}
-		} else
-			echo __ ( 'Not empty', 'mTheme' );
+		$template = self::mTheme_get_template_part ( 'content', $atts['layout'] );
+		if ( file_exists("{$template}") ) {
+			require "{$template}";
+		}
 
 		return ob_get_clean ();
 	}
-	
+	/*
 	public static function maps($atts, $content = '') {
 		$atts = shortcode_atts ( array (
 				'LatLng' => '51.5042389, -0.1061977',
@@ -121,7 +110,7 @@ class mTheme_Shortcode {
 		echo '<div class="maps '. $atts['class_name'] .'"><div id="map-canvas"></div></div>';
 		
 		return ob_get_clean ();
-	}
+	} */
 	
 	/**
 	 * Add Shortcodes to Visual Composer
@@ -142,140 +131,189 @@ class mTheme_Shortcode {
 				__( '11 columns - 11/12', 'mTheme' ) => '11/12',
 				__( '12 columns - 1/1', 'mTheme' ) => '1/1',
 		);
+		$order_by_values = array(
+				__( 'Date', 'mTheme' ) => 'date',
+				__( 'ID', 'mTheme' ) => 'ID',
+				__( 'Author', 'mTheme' ) => 'author',
+				__( 'Title', 'mTheme' ) => 'title',
+				__( 'Modified', 'mTheme' ) => 'modified',
+				__( 'Random', 'mTheme' ) => 'rand',
+				__( 'Comment count', 'mTheme' ) => 'comment_count',
+				__( 'Menu order', 'mTheme' ) => 'menu_order',
+		);
 		
+		$order_way_values = array(
+				__( 'Descending', 'mTheme' ) => 'DESC',
+				__( 'Ascending', 'mTheme' ) => 'ASC',
+		);
 		
 		$parems = array();
 		$parems = array(
 				
 						array(
-								'type' => 'textfield',
-								'heading' => __( 'Widget title', 'mTheme' ),
-								'param_name' => 'title',
-								'description' => __( 'Enter text used as widget title (Note: located above content element).', 'mTheme' )
+								'type' 			=> 'textfield',
+								'heading' 		=> __( 'Widget title', 'mTheme' ),
+								'param_name' 	=> 'title',
+								'description' 	=> __( 'Enter text used as widget title (Note: located above content element).', 'mTheme' )
 						),
 						array(
-								'type' => 'dropdown',
-								'heading' => __( 'Styles', 'mTheme' ),
-								'param_name' => 'styles',
-								'value' => array(
-										__( 'Carousel', 'mTheme' ) => 'carousel',
-										__( 'Gallery', 'mTheme' ) => 'gallery',
-										__( 'Blog', 'mTheme' ) => 'blog',
-								),
+								'type' 			=> 'dropdown',
+								'heading' 		=> __( 'Layout', 'mTheme' ),
+								'param_name' 	=> 'layout',
+								'value' 		=> array(
+														__( 'Product Default', 'mTheme' ) 	=> 'product',
+														__( 'Carousel', 'mTheme' ) 			=> 'carousel',
+														__( 'Gallery', 'mTheme' ) 			=> 'gallery',
+														__( 'Blog', 'mTheme' ) 				=> 'blog',
+												)
+						),
+						/*array(
+								'type' 			=> 'dropdown',
+								'heading' 		=> __( 'Styles', 'mTheme' ),
+								'param_name' 	=> 'styles',
+								'value' 		=> array(
+														__( 'Carousel', 'mTheme' ) => 'carousel',
+														__( 'Gallery', 'mTheme' ) => 'gallery',
+														__( 'Blog', 'mTheme' ) => 'blog',
+												)
+						),*/
+						array(
+								'type' 			=> 'dropdown',
+								'heading' 		=> __( 'Image source', 'mTheme' ),
+								'param_name' 	=> 'source',
+								'value' 		=> array(
+														__( 'Media library', 'mTheme' ) => 'media_library',
+														__( 'Product', 'mTheme' ) 		=> 'product'
+												),
+								'std' 			=> 'media_library',
+								'description' 	=> __( 'Select image source.', 'mTheme' )
 						),
 						array(
-								'type' => 'dropdown',
-								'heading' => __( 'Image source', 'mTheme' ),
-								'param_name' => 'source',
-								'value' => array(
-										__( 'Media library', 'mTheme' ) => 'media_library',
-										__( 'Post types', 'mTheme' ) => 'posttypes'
-								),
-								'std' => 'media_library',
-								'description' => __( 'Select image source.', 'mTheme' )
+								'type'			=> 'attach_images',
+								'heading' 		=> __( 'Images', 'mTheme' ),
+								'param_name' 	=> 'images',
+								'value' 		=> '',
+								'description' 	=> __( 'Select images from media library.', 'mTheme' ),
+								'dependency' 	=> array(
+														'element' => 'source',
+														'value' => 'media_library'
+												),
 						),
-						array(
-								'type' => 'attach_images',
-								'heading' => __( 'Images', 'mTheme' ),
-								'param_name' => 'images',
-								'value' => '',
-								'description' => __( 'Select images from media library.', 'mTheme' ),
-								'dependency' => array(
-										'element' => 'source',
-										'value' => 'media_library'
-								),
-						),
-						array(
-								'type' => 'posttypes',
-								'heading' => __( 'Post types', 'mTheme' ),
-								'param_name' => 'posttypes',
-								'value' => '',
-								'description' => __( 'Select post types.', 'mTheme' ),
-								'dependency' => array(
-										'element' => 'source',
-										'value' => 'posttypes'
-								),
-						)
 			
 		);
 		
+		/**
+		 * Product
+		 * */
+		$parems[] = array(
+							'type' 				=> 'dropdown',
+							'heading' 			=> __( 'Group Products', 'mTheme' ),
+							'param_name' 		=> 'product_group',
+							'description' 		=> __( '', 'mTheme' ),
+							'value' 			=> array(
+														__( 'Products Categories', 'mTheme' ) 	=> 'products_categories',
+														__( 'Recent Products', 'mTheme' ) 		=> 'recent_products',
+														__( 'Featured Products', 'mTheme' ) 	=> 'featured_products',
+														__( 'Sale Products', 'mTheme' ) 		=> 'sale_products',
+														__( 'Best Selling Products', 'mTheme' )	=> 'best_selling_products',
+														__( 'Top Rated Products', 'mTheme' ) 	=> 'top_rated_products',
+														__( 'Custom Products', 'mTheme' ) 		=> 'custom_products',
+												),
+							'dependency' 		=> array(
+														'element' 	=> 'source',
+														'value' 	=> 'product'
+												),
+					);
+				
+		$parems[] = array(
+							'type' 				=> 'autocomplete',
+							'heading' 			=> __( 'Categories', 'mTheme' ),
+							'param_name' 		=> 'product_cat_ids',
+							'dependency' 		=> array(
+														'element'	=> 'product_group',
+														'value' 	=> 'products_categories'
+												),
+							'settings' 			=> array(
+														'multiple' => true,
+														'sortable' => true,
+												),
+							'save_always' 		=> true,
+							'description' 		=> __( 'List of product categories', 'mTheme' ),
+					);
 		
-		$post_types = get_post_types( array( 'public' => true) );
-		foreach ( $post_types as $post_type ) {
-			
-			if ( 'attachment' !== $post_type ) {
-				
-				$posts = get_posts(array(
-								'numberposts'	=> -1,
-								'order'			=> 'ASC',
-								'orderby'		=> 'title',
-								'post_type'		=> $post_type
-						));
-				
-				if ( count($posts) > 0 ) {
-					$values = array();
-					foreach ( $posts as $post ) {
-						$values[$post->post_title] = $post->ID;
-					}
-				}
-				
-				$parems[] = array(
-									'type' => 'checkbox',
-									'heading' => __( 'Choose ' . $post_type, 'mTheme' ),
-									'param_name' => $post_type,
-									'description' => __( '', 'mTheme' ),
-									'value' => $values,
-									'dependency' => array(
-											'element' => 'posttypes',
-											'value' => $post_type
-									),
-							);
-			}
-		}
+		
+		//Filters For autocomplete param:
+		//For suggestion: vc_autocomplete_[shortcode_name]_[param_name]_callback
+		add_filter( 'vc_autocomplete_mTheme_posttypes_product_cat_ids_callback', array( 'Vc_Vendor_Woocommerce', 'productCategoryCategoryAutocompleteSuggester', ), 10, 1 ); // Get suggestion(find). Must return an array
+		add_filter( 'vc_autocomplete_mTheme_posttypes_product_cat_ids_render', array( 'Vc_Vendor_Woocommerce', 'productCategoryCategoryRenderByIdExact', ), 10, 1 ); // Render exact category by id. Must return an array (label,value)
 		
 		$parems[] = array(
-							'type' => 'dropdown',
-							'heading' => __( 'Order', 'mTheme' ),
-							'param_name' => 'order',
-							'value' => array(
-									__( 'ASC', 'mTheme' ) => 'ASC',
-									__( 'DESC', 'mTheme' ) => 'DESC'
-							),
-							'description' => __( '', 'mTheme' ),
-							'dependency' => array(
-									'element' => 'source',
-									'value' => 'posttypes'
-							),
+							'type' 				=> 'autocomplete',
+							'heading' 			=> __( 'Products', 'mTheme' ),
+							'param_name' 		=> 'product_ids',
+							'dependency' 		=> array(
+														'element'	=> 'product_group',
+														'value' 	=> 'custom_products'
+												),
+							'settings' 			=> array(
+														'multiple' => true,
+														'sortable' => true,
+														'unique_values' => true,
+														// In UI show results except selected. NB! You should manually check values in backend
+												),
+							'save_always' 		=> true,
+							'description' 		=> __( 'Enter List of Products', 'mTheme' ),
 					);
 		$parems[] = array(
-							'type' => 'dropdown',
-							'heading' => __( 'Orderby', 'mTheme' ),
-							'param_name' => 'orderby',
-							'value' => array(
-									__( 'ID', 'mTheme' ) => 'ID',
-									__( 'Title', 'mTheme' ) => 'title',
-									__( 'Name', 'mTheme' ) => 'name',
-									__( 'Date', 'mTheme' ) => 'date',
-									__( 'Random', 'mTheme' ) => 'rand',
-									__( 'Comment count', 'mTheme' ) => 'comment_count',
-									__( 'Menu order', 'mTheme' ) => 'menu_order',
-							),
-							'description' => __( '', 'mTheme' ),
-							'dependency' => array(
-									'element' => 'source',
-									'value' => 'posttypes'
-							),
+							'type' 				=> 'hidden',
+							'param_name' 		=> 'product_skus',
 					);
+		
+		//Filters For autocomplete param:
+		//For suggestion: vc_autocomplete_[shortcode_name]_[param_name]_callback
+		add_filter( 'vc_autocomplete_mTheme_posttypes_product_ids_callback', array( 'Vc_Vendor_Woocommerce','productIdAutocompleteSuggester',), 10, 1 ); // Get suggestion(find). Must return an array
+		add_filter( 'vc_autocomplete_mTheme_posttypes_product_ids_render', array( 'Vc_Vendor_Woocommerce', 'productIdAutocompleteRender', ), 10, 1 ); // Render exact product. Must return an array (label,value)
+		//For param: ID default value filter
+		add_filter( 'vc_form_fields_render_field_mTheme_posttypes_product_ids_param_value', array( 'Vc_Vendor_Woocommerce', 'productsIdsDefaultValue', ), 10, 4 ); // Defines default value for param if not provided. Takes from other param value.
+		
 		$parems[] = array(
-							'type' => 'textfield',
-							'heading' => __( 'Total items', 'mTheme' ),
-							'param_name' => 'max_items',
-							'description' => __( 'Set max limit for items in grid or enter -1 to display all.', 'mTheme' ),
-							'dependency' => array(
-									'element' => 'source',
-									'value' => 'posttypes'
+							'type' 				=> 'dropdown',
+							'heading' 			=> __( 'Order by', 'mTheme' ),
+							'param_name' 		=> 'product_orderby',
+							'value' 			=> $order_by_values,
+							'dependency' 		=> array(
+									'element'	=> 'product_group',
+									'value' 	=> array('products_categories', 'recent_products', 'featured_products', 'sale_products', 'top_rated_products')
 							),
-							'std' => '10',
+							'save_always' 		=> true,
+							'description'		=> sprintf( __( 'Select how to sort retrieved products. More at %s.', 'mTheme' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+					);
+		
+		$parems[] = array(
+							'type' 				=> 'dropdown',
+							'heading' 			=> __( 'Sort order', 'mTheme' ),
+							'param_name' 		=> 'product_order',
+							'value' 			=> $order_way_values,
+							'dependency' 		=> array(
+									'element'	=> 'product_group',
+									'value' 	=> array('products_categories', 'recent_products', 'featured_products', 'sale_products', 'top_rated_products')
+							),
+							'save_always' 		=> true,
+							'description' 		=> sprintf( __( 'Designates the ascending or descending order. More at %s.', 'mTheme' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+					);
+		// End Product
+		
+		
+		$parems[] = array(
+							'type' 				=> 'textfield',
+							'heading' 			=> __( 'Total items', 'mTheme' ),
+							'param_name' 		=> 'max_items',
+							'description' 		=> __( 'Set max limit for items in grid or enter -1 to display all.', 'mTheme' ),
+							'dependency' 		=> array(
+														'element' 	=> 'source',
+														'value' 	=> array('product')
+												),
+							'std' 				=> '10',
 					);
 		$parems[] = array(
 							'type' => 'textfield',
@@ -338,6 +376,7 @@ class mTheme_Shortcode {
 				'js_view' => 'mTheme_posttype',
 		) );
 		
+		/*
 		 vc_map ( array (
 		 		'name' => __ ( 'mTheme Maps', 'mTheme' ),
 		 		'base' => 'mTheme_maps',
@@ -373,7 +412,7 @@ class mTheme_Shortcode {
 		 						'param_name' => 'class_name'
 		 				)
 		 		)
-		 ) );
+		 ) ); */
 	}
 
 }
