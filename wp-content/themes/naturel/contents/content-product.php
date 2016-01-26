@@ -6,7 +6,7 @@ global $post, $product;
 <!-- Post -->
 <div class="col-sm-4">
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<figure class="product-thumbnail">
+		<figure class="entry-thumbnail">
 			<a href="<?php echo get_permalink(get_the_ID()); ?>"><?php echo woocommerce_get_product_thumbnail(); ?></a>
 			<div class="buttons">
 				<?php do_action( 'mtheme_woocommerce_add_to_cart' );?>
