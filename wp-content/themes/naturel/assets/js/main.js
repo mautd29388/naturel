@@ -82,11 +82,38 @@
 			});
 		})
 		
+		
+		// Sidebar Floating
 		$('.sidebar-floating').on('click', '.floating-button', function(e) {
 			e.preventDefault();
 			
 			$('.sidebar-floating').toggleClass('active');
 		});
+		
+		
+		// Products Tab
+		$('.mTheme-products-tab').each( function(){
+			var $this 			=  $(this),
+				$tabs			= '',
+				$tab_content 	= '',
+				$active			= '',
+				$parent 		= $this.parent();
+			
+			$tabs 		= '<div class="mtheme-products-tabs"><ul class="nav nav-tabs"></ul><div class="tab-content"></div></div>';
+		
+			if ( $parent.children('.mtheme-products-tabs').length < 1 ) {
+				$parent.append($tabs);
+				$active = 'active';
+			} else{
+				$active = '';
+			}
+			
+			$parent.find('.mtheme-products-tabs .nav-tabs').append('<li class="'+ $active +'"><a data-toggle="tab" href="#'+ $this.attr('id') +'">'+ $this.find('.wpb_heading').html() +'</a></li>');
+			$parent.find('.mtheme-products-tabs .tab-content').append('<div id="'+ $this.attr('id') +'" class="tab-pane '+ $active +'"><div class="mtheme-products-inner">'+ $this.find('.mtheme-products-inner').html() +'</div></div>');
+
+			$this.remove();
+		});
+		
 		
 	});
 	

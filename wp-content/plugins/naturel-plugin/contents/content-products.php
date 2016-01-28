@@ -15,6 +15,8 @@ if ( ! defined( 'WPINC' ) ) {
 		} elseif ( $atts['product_banner_align'] == 'right' ) {
 			$banner_class[] = 'col-sm-push-6';
 		}
+		
+		$columns = 2;
 	?>
 	<div class="<?php echo join(' ', $banner_class); ?>">
 		<div class="mpt-item-banner">
@@ -42,6 +44,12 @@ if ( ! defined( 'WPINC' ) ) {
 				$css_classes[] = 'col-sm-pull-6';
 		}
 		
+		if ( $i%$columns == 1 ) {
+			$css_classes[] = 'product-first';
+		
+		} elseif ( $i%$columns == 0 ) {
+			$css_classes[] = 'product-last';
+		}
 		?>
 		<div class="product <?php echo implode(' ', $css_classes); ?>">
 			<div class="product-entry">

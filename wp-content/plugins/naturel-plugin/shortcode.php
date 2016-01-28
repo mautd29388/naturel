@@ -144,6 +144,15 @@ class mTheme_Shortcode {
 			$parent_class[] = $atts['el_class'];
 		}
 		
+		$layout = '';
+		if ( $atts['product_layout'] == 'tab' ) {
+			$parent_class[] = 'mTheme-products-tab';
+		} else{
+			$layout = $atts['product_layout'];
+		}
+		
+		$columns = m_wedding_translateColumnWidthVC($atts['width']);
+		
 		//$css_classes = array(
 				//'wpb_column',
 				//'vc_column_container',
@@ -271,7 +280,7 @@ class mTheme_Shortcode {
 		
 		echo '<div class="mtheme-products-inner">';
 		
-			$template = self::mTheme_get_template_part ( 'content-products', $atts['product_layout'] );
+			$template = self::mTheme_get_template_part ( 'content-products', $layout );
 			if ( file_exists("{$template}") ) {
 				
 				if ( $query->have_posts () ) {
@@ -474,7 +483,7 @@ class mTheme_Shortcode {
 									'value' 		=> array(
 											__( 'Basic', 'mTheme' ) 	=> '',
 											__( 'Tab', 'mTheme' ) 		=> 'tab',
-											__( 'Carousel', 'mTheme' )	=> 'carousel',
+											//__( 'Carousel', 'mTheme' )	=> 'carousel',
 									)
 							),
 							/*

@@ -317,6 +317,25 @@ function m_wedding_trim( $text, $excerpt_length = 55){
 	return $text;
 }
 
+/**
+ * @param $width
+ *
+ * @since 4.2
+ * @return bool|string
+ */
+function m_wedding_translateColumnWidthVC( $width ) {
+	preg_match( '/(\d+)\/(\d+)/', $width, $matches );
+
+	if ( ! empty( $matches ) ) {
+		$value = (int) $matches[2];
+			
+		if ( $value > 0 && $value <= 12 ) {
+			return $value;
+		}
+	}
+
+	return false;
+}
 
 /**
  * Container
