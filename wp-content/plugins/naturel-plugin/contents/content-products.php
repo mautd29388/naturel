@@ -69,7 +69,7 @@ if ( ! defined( 'WPINC' ) ) {
 				<div class="entry-body">
 					<h4 class="entry-title"><a href="<?php echo get_permalink(get_the_ID()); ?>"><?php echo get_the_title(); ?></a></h4>
 					<?php if ( $post->post_type == 'product' ) {
-						do_action( 'mtheme_woocommerce_rating' );
+						//do_action( 'mtheme_woocommerce_rating' );
 						do_action( 'mtheme_woocommerce_price' );
 					} ?>
 				</div>

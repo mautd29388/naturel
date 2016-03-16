@@ -169,7 +169,7 @@ function m_wedding_pre_get_posts() {
 /**
  * Less
  */
-//add_action( 'init', 'm_wedding_include_less_dev' );
+add_action( 'init', 'm_wedding_include_less_dev' );
 function m_wedding_include_less_dev(){
 	
 	if ( is_admin() ) 
@@ -230,7 +230,7 @@ function m_wedding_include_less() {
 		
 		$parser->parseFile( get_template_directory () . "/assets/less/stylesheets.less", '../' );
 		
-		$parser->ModifyVars( array('font-size-base'=>'17px', 'brand-primary' => $featured_color) );
+		$parser->ModifyVars( array('font-size-base'=>'16.5px', 'brand-primary' => $featured_color) );
 		
 		$css = $parser->getCss();
 		

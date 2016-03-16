@@ -429,11 +429,16 @@ class mTheme_Shortcode {
 		
 		echo '<div id="mtheme-products-'. $int .'" class="mtheme-products '. join($parent_class, ' ') .'">';
 		
-		if ( !empty($atts['title']) )
-			echo wpb_widget_title( array( 'title' => $atts['title'], 'extraclass' => 'wpb_singleimage_heading' ) );
-		
-		if ( !empty($atts['before_content']) )
-			echo '<div class="before-content">'. $atts['before_content'] .'</div>';
+		if ( !empty($atts['title']) || !empty($atts['before_content']) ) {
+			echo '<div class="mtheme-title">';
+			if ( !empty($atts['title']) )
+				echo wpb_widget_title( array( 'title' => $atts['title'], 'extraclass' => 'wpb_singleimage_heading' ) );
+			
+			if ( !empty($atts['before_content']) )
+				echo '<div class="before-content">'. $atts['before_content'] .'</div>';
+			
+			echo '</div>';
+		}
 		
 		echo '<div class="mtheme-products-inner">';
 		

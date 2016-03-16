@@ -250,14 +250,14 @@ function m_wedding_style() {
 		}
 	
 		if ( isset($typography['font-color']) && !empty($typography['font-color']) ) {
-			$typography_body[] = 'color' . ':' . $typography['font-color'] . '!important';
+			$typography_body[] = 'color' . ':' . $typography['font-color'];
 			unset($typography['font-color']);
 		}
 	
 		foreach ( $typography as $k => $val ) {
 	
 			if ( !empty($val) )
-				$typography_body[] = $k . ':' . $val . '!important';
+				$typography_body[] = $k . ':' . $val;
 		}
 		
 		if ( count($typography_body) > 0 ) {
@@ -278,18 +278,18 @@ function m_wedding_style() {
 		}
 	
 		if ( isset($heading['font-color']) && !empty($heading['font-color']) ) {
-			$heading_css[] = 'color' . ':' . $heading['font-color'] . '!important';
+			$heading_css[] = 'color' . ':' . $heading['font-color'];
 			unset($heading['font-color']);
 		}
 	
 		foreach ( $heading as $k => $val ) {
 	
 			if ( !empty($val) )
-				$heading_css[] = $k . ':' . $val . '!important';
+				$heading_css[] = $k . ':' . $val;
 		}
 	
 		if ( count($heading_css) > 0 ) {
-			$style .= 'h1,h2,h3,h4,h5,h6 {' ;
+			$style .= 'nav.navbar,h1,h2,h3,h4,h5,h6 {' ;
 			$style .= implode(';', $heading_css);
 			$style .= '}';
 		}

@@ -9,6 +9,9 @@ body{
 a:hover{
 	text-decoration: none;
 }
+nav.navbar, h1, h2, h3, h4, h5, h6{
+	letter-spacing: 0.5px;
+}
 /*--------------------
 ------- Header -------
 ---------------------*/
@@ -37,6 +40,7 @@ a:hover{
 	    line-height: 54px;
 	    border-width: 0 0 1px;
 	    border-style: solid;
+	    font-size: 13px;
 	    
 	    ul{
 	    	float: left;
@@ -100,7 +104,7 @@ a:hover{
 			> li{
 				float: none;
 				display: inline-block;
-				padding: 0 30px;
+				padding: 0 25px;
 				
 				> a{
 					display: block;
@@ -1142,8 +1146,91 @@ a:hover{
 			}
 		}
 	}
+	.mtheme-title {
+		text-align: center;
+		margin-bottom: 45px;
+		
+		.wpb_heading{
+			text-transform: uppercase;
+			margin-bottom: 20px;
+			padding-bottom: 20px;
+			position: relative;
+			
+			&:after{
+				content: "";
+				position: absolute;
+				width: 50px;
+				height: 3px;
+				bottom: 0;
+				left: 50%;
+				.translate(-50%; 0);
+			}
+		}
+		.before-content{
+			font-size: 17px;
+			line-height: 18px
+		}
+	}
 }
-
+.mtheme-products{
+	
+	.product{
+		.entry-thumbnail{
+			margin-bottom: 12px;
+			position: relative;
+			
+			&:after{
+				content: "";
+				position: absolute;
+				z-index: 1;
+				left: 0;
+				bottom: 0;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				opacity: 0.2;
+				
+				background-color: #000;
+			}
+			.buttons{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				.translate(-50%; -50%);
+				z-index: 2;
+			}
+		}
+		.entry-body{
+			text-align: center;
+			
+			.entry-title{
+				font-size: 18px;
+				margin-bottom: 10px;
+				text-transform: capitalize;
+				
+				a{
+					color: inherit;
+				}
+			}
+			.price{
+				font-size: 17px;
+				font-weight: bold;
+				font-style: italic;
+				display: inline-block;
+				
+				ins{
+					float: left;
+    				text-decoration: none;
+				}
+				del{
+					margin-left: 10px;
+					font-weight: normal;
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
 .woocommerce{
 	
 	/* Shop */
